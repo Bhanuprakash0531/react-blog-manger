@@ -1,0 +1,38 @@
+header{
+    background-color:rgb(122, 110, 137);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+h1{
+    text-align:center;
+    font-size: 1.5rem;
+    margin: 0;
+}
+nav ul{
+    list-style: none;
+    display:flex;
+    font-size:1.5rem;
+    gap: 1rem;
+    margin: 0;
+    padding: 15px 40px;
+}
+nav a{
+    text-decoration:none;
+    color:#333;
+}
+nav img{
+    
+    border-radius:10px;
+}
+.login-button{
+    background-color:rgb(193, 13, 13)0;
+    border-radius:5px;
+    padding: auto;
+    color:rgba(4, 2, 12, 0.96)0;
+    cursor: pointer;
+    border:none;
+    font-size:18px;
+    font-weight:bold;
+    margin-right:auto;
+}

@@ -1,0 +1,39 @@
+
+main{
+    padding: 1rem;
+    background-color:#fafafa;
+}
+
+
+form{
+    display:flex;
+    max-width: 500px;
+    margin:0 auto;
+    flex-direction: column;
+}
+label{
+    font-weight:bold;
+}
+input,textarea{
+    width: 100%;
+    padding: 0.5rem;
+    margin-top:0.5rem;
+}
+.post-button{
+    width:100px;
+    padding:0.5rem;
+    margin-top: 1rem;
+    background-color:#2196f3;
+    color:#fff;
+    border:none;
+    cursor:pointer;
+}
+h3{
+    padding:1rem;
+    font-weight:Bold;
+}
+.blog-pic{
+    max-width:100%;
+    height:auto;
+    border-radius:20px;
+}

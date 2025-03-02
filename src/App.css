@@ -38,10 +38,11 @@
 }
 
 .App{
-  h2{
+  header{
     font-family:'Arial';
     text-align:center;
     font-size:30px;
+    background-color:#61daf;
   }
   p{
     font-size:15pn;
