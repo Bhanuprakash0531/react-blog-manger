@@ -6,11 +6,25 @@ function BlogBody(){
 
     const [title, setTitle]= useState('');
     const [posts, setPosts]= useState([]);
-
+    const [body, setBody]=useState('');
+    const [date, setDate]=useState('');
+    const [time, setTime]=useState('');
+    const currentDateTime = new Date().toLocaleString();
 
     function handleTitleChange(event){
         setTitle(event.target.value);
-        console.log("Current title:", title);
+    }
+
+    function  handleBodyChange(event){
+        setBody(event.target.value);
+    }
+    function handleDeletePost(indexToRemove){
+        const confirmed = window.confirm("Are you sure you want to delete this post?");
+        if(!confirmed){
+            return;
+        }
+        const updatePosts= posts.filter((_,index)=>index !=indexToRemove);
+        setPosts(updatePosts);
     }
 
     function handlePost(){
@@ -21,16 +35,23 @@ function BlogBody(){
         if(dummypost.title){
             console.log("The dummy post has a title:",dummypost.title);
         }*/
-       if(title == ''){
+       if(title === ''){
         alert('please enter a title');
         return;
        }
-       const newPost={title:title};
-       //console.log("New post object", newPost);
+
+       if (body === ''){
+        alert('Please enter a body');
+        return;
+       }
+
+       const newPost={title:title,body:body,date:date,time:time};
        setPosts([...posts,newPost]);
        alert("Your title is: "+ newPost.title);
        setTitle('');
-      
+       setBody('');
+       setDate('');
+       setTime('');
     }
     /* function handleTest(){
             const testPost ={title:"Hello",author:"Bhanu", date:"02-28-2025"};
@@ -39,6 +60,7 @@ function BlogBody(){
             console.log("Post dated on: ",testPost.date);
         }  
     */
+    
 
     return(
         <main>
@@ -47,22 +69,46 @@ function BlogBody(){
                 
             <label>
                 Title:
-                <input type="text" value={title} onChange={handleTitleChange} placeholder="Enter your blog title"/>
+                <input
+                 type="text"
+                 value={title}
+                 onChange={handleTitleChange} 
+                 placeholder="Enter your blog title"
+                />
             </label>
-                {/* 
-                <br></br>
-                <label>
-                    Body:
-                    <textarea name="body" placeholder="Start writing the content here..."></textarea>
-                </label>
-                <br></br>
-                */}
+            <label>
+                Body:
+                <textarea
+                 name="body"
+                 value={body}
+                 onChange={handleBodyChange}
+                 placeholder="Start writing the content here...">
+                </textarea>
+            </label>
+            <input type="date"
+                   value={date}
+                   onChange={(e)=>setDate(e.target.value)}
+            />
+            <input 
+            type="time"
+            value={time}
+            onChange={(e)=>setTime(e.target.value)}
+            />
+               <br></br>
                 <button className="post-button" type="button" onClick={handlePost}>Post</button>
 
                 {posts.map((post, index)=>(
                 <div key={index}>
                     <h4>{post.title}</h4>
+                    <h5>{post.body}</h5>
+                    <h6>{post.date}</h6>
+                    <h7>{post.time}</h7>
+                    <button className="post-button" onClick={
+                        ()=>{if(window.confirm("Are you sure?"))
+                        {handleDeletePost(index)}
+                        }}>Delete</button>
                 </div>))}
+                <p>Blog posted at {currentDateTime}</p>
 
                 {/*<h4>Create Another Post</h4>
 
