@@ -1,4 +1,8 @@
+import React,{useEffect} from "react";
+
 function About(){
+    useEffect(()=>{
+        document.body.style.backgroundColor= 'lightblue';})
     return (
         <div style={{padding:"1rem"}}>
             <h2> About This Blog Manager</h2>

@@ -9,6 +9,7 @@ function BlogBody(){
     const [body, setBody]=useState('');
     const [date, setDate]=useState('');
     const [time, setTime]=useState('');
+    const [statusMessage, setStatusMessage]=useState('');
     const currentDateTime = new Date().toLocaleString();
 
     function handleTitleChange(event){
@@ -23,23 +24,17 @@ function BlogBody(){
         if(!confirmed){
             return;
         }
-        const updatePosts= posts.filter((_,index)=>index !=indexToRemove);
+        const updatePosts= posts.filter((_,index)=>index !==indexToRemove);
         setPosts(updatePosts);
     }
 
-    function handlePost(){
-       /* //alert("You clicked the post button!:");
-        const dummypost = { title:"sample Title",author: "Myself"};
-        // alert("Created a dumpy:"+ dumpypost.title);
-        console.log("created a dummy posts: ",dummypost.title);
-        if(dummypost.title){
-            console.log("The dummy post has a title:",dummypost.title);
-        }*/
+    async function handlePost(){
+        
+
        if(title === ''){
-        alert('please enter a title');
+        alert('Please enter a title');
         return;
        }
-
        if (body === ''){
         alert('Please enter a body');
         return;
@@ -47,24 +42,48 @@ function BlogBody(){
 
        const newPost={title:title,body:body,date:date,time:time};
        setPosts([...posts,newPost]);
-       alert("Your title is: "+ newPost.title);
+       alert("New Post Object: Your Title is "+newPost.title+" and your body is "+newPost.body);
+       console.log("New post object: ",newPost);
        setTitle('');
        setBody('');
        setDate('');
        setTime('');
-    }
-    /* function handleTest(){
-            const testPost ={title:"Hello",author:"Bhanu", date:"02-28-2025"};
-            console.log("Post title: ",testPost.title);
-            console.log("Post Author: ",testPost.author);
-            console.log("Post dated on: ",testPost.date);
-        }  
-    */
-    
 
+       try{
+        console.log('send blog post to backend:',{title:newPost.title, body:newPost.body});
+        const response =await fetch('http://localhost:3001/api/blog-post',{
+        method:'POST',
+        headers:{
+            'Content-type':'application/json',
+        },
+        body:JSON.stringify({
+            title:newPost.title,
+            body:newPost.body
+        })
+        });
+        const data =await response.json();
+        console.log('Response from backend:',data);
+        if(data.success){
+            setStatusMessage(`Blog post "${newPost.title}" sucessfully saved to server`);
+            setTimeout(()=>setStatusMessage(''),5000)
+        }else{
+            setStatusMessage('Server returned an unexpected response');
+            setTimeout(()=>setStatusMessage(''),5000);
+        }
+       }catch(e){
+       console.log('Error sending blog post to API:',e);
+       const errorMessage={
+        title:'Sorry, there was an error communicating with the blog post. Please try again.',
+        body:'Sorry, there was an error communicating with the blog post. Please try again.',
+        timestamp: new Date().toLocaleString()
+       }
+       setStatusMessage(errorMessage.title);
+       }
+    }
     return(
         <main>
             <h2>Create a New Blog Post</h2>
+            <p>{statusMessage}</p>
             <form>
                 
             <label>
@@ -85,15 +104,21 @@ function BlogBody(){
                  placeholder="Start writing the content here...">
                 </textarea>
             </label>
-            <input type="date"
+            <label>
+                Date:
+                 <input type="date"
                    value={date}
                    onChange={(e)=>setDate(e.target.value)}
-            />
-            <input 
-            type="time"
-            value={time}
-            onChange={(e)=>setTime(e.target.value)}
-            />
+                 />
+            </label>
+            <label>
+                Time:
+                 <input 
+                 type="time"
+                 value={time}
+                  onChange={(e)=>setTime(e.target.value)}
+                 />
+            </label>
                <br></br>
                 <button className="post-button" type="button" onClick={handlePost}>Post</button>
 
@@ -109,27 +134,11 @@ function BlogBody(){
                         }}>Delete</button>
                 </div>))}
                 <p>Blog posted at {currentDateTime}</p>
-
-                {/*<h4>Create Another Post</h4>
-
-                <label>
-                    Title:
-                    <input type="text" name="title" placeholder="Enter your awesome blog title"></input>
-                </label>
-                <br></br>
-                <label>
-                    Body:
-                    <textarea name="body" placeholder="Start writing the content here..."></textarea>
-                </label>
-                <br></br>
-                <button className="post-button" type="button" onClick={handleTest}>TestPost</button>
-                */}
-
                 <h3>Create your own ideas</h3>
             <p>
                 "A blog is more than just words—it’s your personal brand, your creativity, and your mark on the internet."
             </p>
-            <img className="blog-pic" src="/blog.jpg"></img>
+            <img className="blog-pic" alt="Blog" src="/blog.jpg"></img>
             </form>
             
 
@@ -137,3 +146,6 @@ function BlogBody(){
     );
 }
 export default BlogBody;
+
+
+

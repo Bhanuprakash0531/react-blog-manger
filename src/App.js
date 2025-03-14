@@ -90,6 +90,8 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Profile from './components/Profile';
 import BlogPosts from './components/BlogPosts';
+import FetchDemo from "./components/FetchDemo";
+import FetchDemoAsync from "./components/FetchDemoAsync";
 
 function App(){
   return(
@@ -101,6 +103,8 @@ function App(){
       <Route path="/contact" element={<Contact/>}/>
       <Route path="/profile" element={<Profile/>}/>
       <Route path="/blog-posts" element={<BlogPosts/>}/>
+      <Route path="/fetch-demo" element={<FetchDemo/>}/>
+      <Route path="/fetchAsync-demo" element={<FetchDemoAsync/>} />
       {/*Additionals routes like /about or /contact will be added later */}
     </Routes>
     <Footer/>

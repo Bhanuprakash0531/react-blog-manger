@@ -11,7 +11,8 @@ function Header(){
                     <li><Link to='/about'>About</Link></li>
                     <li><Link to='/contact'>Contact</Link></li>
                     <li><Link to='/profile'>Profile</Link></li>
-                    <li><Link to='blog-posts'>Blog Posts</Link></li>
+                    <li><Link to='/blog-posts'>Blog Posts</Link></li>
+                    <li><Link to='/fetch-demo'>FetchDemo</Link></li>
                     <li><button className="login-button" onClick={() =>alert("not yet designed")}>login</button></li>
                 </ul>
             </nav>
