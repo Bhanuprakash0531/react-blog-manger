@@ -19,6 +19,7 @@ function Profile(){
         try{
             const response = await fetch("http://localhost:3001/api/profile");
             const data=await response.json();
+
             setProfile(data);
         }catch(error){
             console.log('error fetching data:',error);
@@ -53,8 +54,9 @@ function Profile(){
         <div>
         {profile?(
             <div>
-                <p>User:{profile.name}</p>
-                <p>Role:{profile.role}</p>
+                <p>User:{profile.id}</p>
+                <p>Name:{profile.name}</p>
+                <p>Email:{profile.email}</p>
             </div>
         ):(<p>Loading...</p>)}
     </div>

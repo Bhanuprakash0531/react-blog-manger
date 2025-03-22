@@ -140,8 +140,6 @@ function BlogBody(){
             </p>
             <img className="blog-pic" alt="Blog" src="/blog.jpg"></img>
             </form>
-            
-
         </main>
     );
 }

@@ -10,7 +10,7 @@ function BlogPosts(){
             try{
                 const response =await fetch('http://localhost:3001/api/blog-list');
                 const data =await response.json();
-                setBlogs(data.dummyBlogPosts);
+                //setBlogs(data.dummyBlogPosts);
                 if(Array.isArray(data.dummyBlogPosts)){
                     console.log(data.dummyBlogPosts);
                 setBlogs(data.dummyBlogPosts);
@@ -40,13 +40,12 @@ function BlogPosts(){
                     {blogs.map((blog,index)=>(
                         <li key={index}>
                             <h3>{blog.title}</h3>
-                            <p>{blog.body}</p>
+                            <p>{blog.content}</p>
                         </li>
                     ))}
                 </ul>
             )}
         </div>
-
     </div>
     );
 }
